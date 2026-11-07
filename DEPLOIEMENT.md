@@ -25,7 +25,7 @@ L'application tourne sur **un seul service Render** (le serveur Java sert l'API 
 
    | Variable | Valeur |
    |---|---|
-   | `DB_URL` | `jdbc:postgresql://HÔTE-NEON/neondb?sslmode=require` |
+   | `DB_URL` | `jdbc:postgresql://HÔTE-NEON/neondb?sslmode=require` — ou directement l'adresse complète copiée depuis Neon (`postgresql://…`), acceptée aussi |
    | `DB_USER` | l'utilisateur Neon |
    | `DB_PASSWORD` | le mot de passe Neon |
    | `ADMIN_EMAIL` | l'e-mail de connexion du dirigeant |
