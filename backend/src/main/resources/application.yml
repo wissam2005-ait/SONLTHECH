@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    default: dev
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/electropro}
+    username: ${DB_USER:electropro}
+    password: ${DB_PASSWORD:electropro}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 30MB
+
+app:
+  jwt-hours: 8
+  # Dossier des photos de réalisations (à monter sur un volume persistant en production)
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  cors-origin: ${CORS_ORIGIN:http://localhost:5173}
+  # Obligatoires en production (profil prod) : JWT_SECRET (32 caractères minimum), ADMIN_EMAIL, ADMIN_PASSWORD
+  jwt-secret: ${JWT_SECRET:}
+  admin-email: ${ADMIN_EMAIL:}
+  admin-password: ${ADMIN_PASSWORD:}
+
+server:
+  # Le frontend (vite.config.ts) redirige /api vers ce port
+  port: ${PORT:8081}
+  error:
+    include-message: never
