@@ -2,9 +2,11 @@
 # Render → New → Blueprint → choisir ce dépôt GitHub, puis remplir les valeurs demandées.
 services:
   - type: web
-    name: electropro
+    name: sonlthech
     runtime: docker
     plan: free
+    # Même région que la base Neon (AWS Europe Central 1, Francfort)
+    region: frankfurt
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/public/company
     autoDeploy: true

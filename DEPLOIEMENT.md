@@ -20,7 +20,7 @@ L'application tourne sur **un seul service Render** (le serveur Java sert l'API 
 ## 2. Serveur + site — Render (10 min)
 
 1. Créez un compte sur https://render.com (« GitHub »).
-2. **New → Blueprint**, choisissez ce dépôt GitHub. Render lit `render.yaml` et prépare le service `electropro` (offre *Free*).
+2. **New → Blueprint**, choisissez ce dépôt GitHub. Render lit `render.yaml` et prépare le service `sonlthech` (offre *Free*, région Francfort).
 3. Remplissez les valeurs demandées :
 
    | Variable | Valeur |
