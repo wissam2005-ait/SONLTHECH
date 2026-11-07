@@ -2,7 +2,7 @@ import RequestForm from '../components/RequestForm'
 import { Icon } from '../components/icons'
 import { PageHero } from '../components/site'
 import { site } from '../lib/site'
-import { telHref, usePageTitle, usePublicCompany } from '../lib/publicCompany'
+import { telHref, usePageTitle, usePublicCompany, waHref } from '../lib/publicCompany'
 
 export default function Devis() {
   usePageTitle('Devis gratuit')
@@ -28,6 +28,13 @@ export default function Devis() {
             <a href={telHref(phone)} className="mt-8 flex items-center gap-3 rounded-xl bg-panel p-5 transition hover:bg-volt/30">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-volt"><Icon name="phone" size={20} /></span>
               <span><span className="block text-sm text-ink/60">Urgent ? Appelez-nous</span><span className="text-lg font-bold">{phone}</span></span>
+            </a>
+          )}
+          {waHref() && (
+            <a href={waHref('Bonjour, je souhaite un devis pour des travaux d’électricité.')!} target="_blank" rel="noopener noreferrer"
+              className="mt-3 flex items-center gap-3 rounded-xl bg-[#25D366]/10 p-5 transition hover:bg-[#25D366]/20">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white"><Icon name="whatsapp" size={22} /></span>
+              <span><span className="block text-sm text-ink/60">Plus simple ?</span><span className="text-lg font-bold">Envoyez des photos sur WhatsApp</span></span>
             </a>
           )}
         </aside>

@@ -4,9 +4,11 @@ import { Field, inputClass } from '../../components/Field'
 import { Icon } from '../../components/icons'
 import { Button, ErrorBanner } from '../../components/ui'
 import { useAuth } from '../../lib/auth'
+import { usePublicCompany } from '../../lib/publicCompany'
 
 export default function Login() {
   const { session, login } = useAuth()
+  const { name: companyName } = usePublicCompany()
   const navigate = useNavigate()
   const location = useLocation()
   const [email, setEmail] = useState('')
@@ -31,7 +33,7 @@ export default function Login() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-ink px-4 py-10">
       <div className="mb-8 flex items-center gap-3">
         <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-volt text-ink"><Icon name="bolt" size={26} strokeWidth={2.2} /></span>
-        <p className="font-display text-4xl font-bold text-white">ElectroPro</p>
+        <p className="font-display text-4xl font-bold text-white">{companyName}</p>
       </div>
       <form onSubmit={onSubmit} className="w-full max-w-sm space-y-4 rounded-xl border-t-4 border-volt bg-white p-7 shadow-2xl">
         <div>

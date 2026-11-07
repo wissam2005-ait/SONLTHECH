@@ -3,7 +3,7 @@ import RequestForm from '../components/RequestForm'
 import { Icon, type IconName } from '../components/icons'
 import { PageHero } from '../components/site'
 import { site } from '../lib/site'
-import { telHref, usePageTitle, usePublicCompany } from '../lib/publicCompany'
+import { telHref, usePageTitle, usePublicCompany, waHref } from '../lib/publicCompany'
 
 function Info({ icon, label, children }: { icon: IconName; label: string; children: React.ReactNode }) {
   return (
@@ -26,6 +26,7 @@ export default function Contact() {
           <h2 className="text-3xl font-bold">Nos coordonnées</h2>
           <ul className="mt-7 space-y-6">
             {phone && <Info icon="phone" label="Téléphone"><a href={telHref(phone)} className="hover:text-volt">{phone}</a></Info>}
+            {waHref() && <Info icon="whatsapp" label="WhatsApp"><a href={waHref()!} target="_blank" rel="noopener noreferrer" className="hover:text-volt">Écrire un message</a></Info>}
             {email && <Info icon="mail" label="E-mail"><a href={`mailto:${email}`} className="break-all hover:text-volt">{email}</a></Info>}
             <Info icon="pin" label="Zone d’intervention">{place || site.area}</Info>
             {site.hours && <Info icon="clock" label="Horaires">{site.hours}</Info>}

@@ -30,7 +30,7 @@ public class PublicCompanyController {
     ResponseEntity<PublicCompany> get() {
         CompanySettings s = settings.findById(1).orElse(null);
         PublicCompany body = s == null
-                ? new PublicCompany("ElectroPro", null, null, null, null, null)
+                ? new PublicCompany("Sonlthech", null, "Béjaïa", "0770 33 79 63", null, null)
                 : new PublicCompany(s.getName(), s.getAddress(), s.getCity(), s.getPhone(), s.getEmail(), s.getLogo());
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(5)).cachePublic())

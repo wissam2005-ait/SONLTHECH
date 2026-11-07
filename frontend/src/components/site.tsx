@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from './icons'
-import { telHref, usePublicCompany } from '../lib/publicCompany'
+import { telHref, usePublicCompany, waHref } from '../lib/publicCompany'
 
 /** Motif « circuit » discret pour les fonds sombres */
 export function CircuitPattern({ className = '' }: { className?: string }) {
@@ -65,6 +65,11 @@ export function CtaBand() {
           {phone && (
             <a href={telHref(phone)} className="flex items-center gap-2 rounded-md border-2 border-ink px-6 py-3 font-bold text-ink transition hover:bg-ink hover:text-white">
               <Icon name="phone" size={18} /> {phone}
+            </a>
+          )}
+          {waHref() && (
+            <a href={waHref()!} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-md bg-[#25D366] px-6 py-3.5 font-bold text-white transition hover:bg-[#1ebe5b]">
+              <Icon name="whatsapp" size={18} /> WhatsApp
             </a>
           )}
         </div>

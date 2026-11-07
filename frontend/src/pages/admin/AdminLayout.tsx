@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Icon, type IconName } from '../../components/icons'
 import { useAuth } from '../../lib/auth'
+import { usePublicCompany } from '../../lib/publicCompany'
 import { roleLabels, type Role } from '../../lib/types'
 
 interface Item { to: string; label: string; icon: IconName; roles: Role[]; end?: boolean }
@@ -49,6 +50,7 @@ function Breaker({ on }: { on: boolean }) {
 
 export default function AdminLayout() {
   const { session, logout } = useAuth()
+  const { name: companyName } = usePublicCompany()
   const navigate = useNavigate()
   const location = useLocation()
   const [open, setOpen] = useState(false)
@@ -90,7 +92,7 @@ export default function AdminLayout() {
   const brand = (
     <div className="flex items-center gap-2.5">
       <span className="flex h-9 w-9 items-center justify-center rounded-md bg-volt text-ink"><Icon name="bolt" size={20} strokeWidth={2.2} /></span>
-      <p className="font-display text-2xl font-bold leading-none text-white">ElectroPro</p>
+      <p className="font-display text-2xl font-bold leading-none text-white">{companyName}</p>
     </div>
   )
 
