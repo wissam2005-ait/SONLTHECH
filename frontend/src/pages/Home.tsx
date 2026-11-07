@@ -3,7 +3,7 @@ import RealisationsGallery from '../components/RealisationsGallery'
 import { Icon } from '../components/icons'
 import { CircuitPattern, CtaBand, SectionTitle } from '../components/site'
 import { site } from '../lib/site'
-import { telHref, usePageTitle, usePublicCompany } from '../lib/publicCompany'
+import { telHref, usePageTitle, usePublicCompany, waHref } from '../lib/publicCompany'
 
 /** Illustration : un tableau électrique stylisé, l'objet emblématique du métier */
 function PanelIllustration() {
@@ -38,7 +38,7 @@ function PanelIllustration() {
           <span className="flex items-center gap-1.5 text-xs font-semibold text-volt"><Icon name="shield" size={14} /> Protégé</span>
         </div>
       </div>
-      <div className="absolute -bottom-5 -left-10 hidden items-center gap-3 rounded-xl bg-white px-4 py-3 text-ink shadow-xl sm:flex">
+      <div className="absolute -bottom-16 -left-6 hidden items-center gap-3 rounded-xl bg-white px-4 py-3 text-ink shadow-xl sm:flex">
         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-volt"><Icon name="check" size={18} strokeWidth={2.4} /></span>
         <div className="text-sm leading-tight"><p className="font-bold">Devis gratuit</p><p className="text-ink/60">détaillé poste par poste</p></div>
       </div>
@@ -71,7 +71,10 @@ export default function Home() {
                 ? <a href={telHref(phone)} className="flex items-center gap-2 rounded-md border border-white/30 px-6 py-3.5 font-semibold transition hover:border-white hover:bg-white/5"><Icon name="phone" size={18} /> {phone}</a>
                 : <Link to="/realisations" className="rounded-md border border-white/30 px-6 py-3.5 font-semibold transition hover:border-white hover:bg-white/5">Voir nos réalisations</Link>}
             </div>
-            <p className="mt-8 flex items-center gap-2 text-sm text-white/60"><Icon name="pin" size={16} className="text-volt" /> Intervention à {site.area}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/60">
+              <p className="flex items-center gap-2"><Icon name="pin" size={16} className="text-volt" /> Intervention à {site.area}</p>
+              {waHref() && <a href={waHref()!} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-semibold text-[#5fe08f] hover:underline"><Icon name="whatsapp" size={16} /> Écrivez-nous sur WhatsApp</a>}
+            </div>
           </div>
           <PanelIllustration />
         </div>

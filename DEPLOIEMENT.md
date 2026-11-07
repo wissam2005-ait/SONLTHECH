@@ -1,4 +1,4 @@
-# Mise en ligne gratuite — Render + Neon
+# Mise en ligne gratuite de Sonlthech — Render + Neon
 
 L'application tourne sur **un seul service Render** (le serveur Java sert l'API *et* le site) relié à une base
 **PostgreSQL Neon**. Les deux offres sont gratuites et ne demandent pas de carte bancaire.
@@ -51,7 +51,7 @@ allumé en permanence : l'offre gratuite inclut 750 heures par mois.)
 
 ## Nom de domaine (optionnel)
 
-Render → service → **Settings → Custom Domains** : ajoutez par ex. `www.electropro.dz` et créez chez votre
+Render → service → **Settings → Custom Domains** : ajoutez par ex. `www.sonlthech.dz` et créez chez votre
 registraire l'enregistrement DNS indiqué. Le certificat HTTPS est fourni gratuitement.
 
 ## Sauvegardes

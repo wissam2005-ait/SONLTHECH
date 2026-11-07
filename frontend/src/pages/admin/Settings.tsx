@@ -25,7 +25,7 @@ const fields: { key: keyof Company; label: string; placeholder?: string; wide?: 
   { key: 'capital', label: 'Capital social', placeholder: '100 000 DA' },
   { key: 'phone', label: 'Téléphone', placeholder: '0550 00 00 00' },
   { key: 'email', label: 'E-mail' },
-  { key: 'city', label: 'Ville', placeholder: 'Alger' },
+  { key: 'city', label: 'Ville', placeholder: 'Béjaïa' },
   { key: 'address', label: 'Adresse', wide: true },
   { key: 'rc', label: 'N° du registre du commerce (RC)' },
   { key: 'nif', label: 'NIF' },

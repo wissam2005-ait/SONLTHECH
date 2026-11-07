@@ -12,7 +12,7 @@ export interface PublicCompany {
   logo: string | null
 }
 
-const fallback: PublicCompany = { name: site.defaultName, address: null, city: site.city, phone: null, email: null, logo: null }
+const fallback: PublicCompany = { name: site.defaultName, address: null, city: site.city, phone: site.phone, email: null, logo: null }
 const Ctx = createContext<PublicCompany>(fallback)
 
 export function PublicCompanyProvider({ children }: { children: ReactNode }) {
@@ -20,7 +20,7 @@ export function PublicCompanyProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetch(`${API_URL}/public/company`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((c: PublicCompany | null) => c && setCompany({ ...fallback, ...c, name: c.name || fallback.name }))
+      .then((c: PublicCompany | null) => c && setCompany({ ...fallback, ...c, name: c.name || fallback.name, phone: c.phone || fallback.phone }))
       .catch(() => { /* le site reste utilisable avec les valeurs par défaut */ })
   }, [])
   return <Ctx.Provider value={company}>{children}</Ctx.Provider>
@@ -30,6 +30,10 @@ export const usePublicCompany = () => useContext(Ctx)
 
 /** Lien d'appel : garde uniquement les chiffres et le « + ». */
 export const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
+
+/** Lien WhatsApp avec un message pré-rempli (null si pas de numéro WhatsApp). */
+export const waHref = (text = site.whatsappMessage) =>
+  site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}` : null
 
 /** Titre de l'onglet du navigateur pour chaque page. */
 export function usePageTitle(title: string) {

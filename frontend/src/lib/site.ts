@@ -9,10 +9,15 @@ import type { IconName } from '../components/icons'
  */
 export const site = {
   /** Nom affiché si les Paramètres ne sont pas encore remplis */
-  defaultName: 'ElectroPro',
+  defaultName: 'Sonlthech',
   /** Zone d'intervention, reprise dans les titres et le référencement */
-  area: 'Alger et ses environs',
-  city: 'Alger',
+  area: 'Béjaïa, Alger et leurs environs',
+  city: 'Béjaïa et Alger',
+  /** Téléphone affiché si les Paramètres ne sont pas encore remplis */
+  phone: '0770 33 79 63',
+  /** Numéro WhatsApp au format international, sans + ni espaces (213 = Algérie). null = pas de bouton WhatsApp */
+  whatsapp: '213770337963' as string | null,
+  whatsappMessage: 'Bonjour, je vous contacte depuis votre site internet.',
   /** Horaires affichés sur la page Contact (laisser null pour ne rien afficher) */
   hours: null as string | null,
 
@@ -109,6 +114,7 @@ export const site = {
   ],
 
   faq: [
+    { q: 'Où intervenez-vous ?', a: 'Nous intervenons à Béjaïa, à Alger et dans leurs environs, pour les particuliers comme pour les professionnels.' },
     { q: 'Le devis est-il gratuit ?', a: 'Oui. Décrivez votre projet via le formulaire ou par téléphone : nous vous remettons un devis détaillé, sans engagement.' },
     { q: 'Intervenez-vous pour les professionnels ?', a: 'Oui : commerces, bureaux, locaux professionnels, ainsi que les lots électricité pour les promoteurs et entreprises, avec devis quantitatif et estimatif.' },
     { q: 'Mon disjoncteur saute souvent, que faire ?', a: 'Débranchez les appareils du circuit concerné puis réarmez. Si le problème persiste, contactez-nous : une surcharge ou un défaut d’isolement peut être dangereux.' },

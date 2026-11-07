@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Icon } from './icons'
-import { PublicCompanyProvider, telHref, usePublicCompany } from '../lib/publicCompany'
+import { telHref, usePublicCompany, waHref } from '../lib/publicCompany'
 import { site } from '../lib/site'
 
 const nav = [
@@ -37,6 +37,7 @@ function Header() {
             <span className="mr-auto flex items-center gap-1.5"><Icon name="pin" size={14} /> {site.area}</span>
             {phone && <a href={telHref(phone)} className="flex items-center gap-1.5 hover:text-volt"><Icon name="phone" size={14} /> {phone}</a>}
             {email && <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-volt"><Icon name="mail" size={14} /> {email}</a>}
+            {waHref() && <a href={waHref()!} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-[#25D366]"><Icon name="whatsapp" size={14} /> WhatsApp</a>}
           </div>
         </div>
       )}
@@ -105,6 +106,7 @@ function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             {phone && <li><a href={telHref(phone)} className="flex items-start gap-2 hover:text-volt"><Icon name="phone" size={16} className="mt-0.5 shrink-0 text-volt" />{phone}</a></li>}
             {email && <li><a href={`mailto:${email}`} className="flex items-start gap-2 break-all hover:text-volt"><Icon name="mail" size={16} className="mt-0.5 shrink-0 text-volt" />{email}</a></li>}
+            {waHref() && <li><a href={waHref()!} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-volt"><Icon name="whatsapp" size={16} className="mt-0.5 shrink-0 text-volt" />WhatsApp</a></li>}
             <li className="flex items-start gap-2"><Icon name="pin" size={16} className="mt-0.5 shrink-0 text-volt" />{[address, city].filter(Boolean).join(', ') || site.area}</li>
             <li><Link to="/contact" className="font-semibold text-white underline-offset-4 hover:underline">Nous écrire</Link></li>
           </ul>
@@ -120,15 +122,26 @@ function Footer() {
   )
 }
 
-/** Bouton d'appel flottant sur mobile, si un téléphone est renseigné */
-function MobileCall() {
+/** Boutons flottants : WhatsApp (toujours) et appel (sur mobile) */
+function FloatingButtons() {
   const { phone } = usePublicCompany()
-  if (!phone) return null
+  const wa = waHref()
   return (
-    <a href={telHref(phone)} aria-label={`Appeler le ${phone}`}
-      className="fixed bottom-4 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-volt text-ink shadow-lg shadow-ink/30 md:hidden">
-      <Icon name="phone" size={24} strokeWidth={2} />
-    </a>
+    <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3">
+      {phone && (
+        <a href={telHref(phone)} aria-label={`Appeler le ${phone}`}
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-volt text-ink shadow-lg shadow-ink/30 md:hidden">
+          <Icon name="phone" size={24} strokeWidth={2} />
+        </a>
+      )}
+      {wa && (
+        <a href={wa} target="_blank" rel="noopener noreferrer" aria-label="Écrire sur WhatsApp"
+          className="group flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-4 text-white shadow-lg shadow-ink/30 transition hover:bg-[#1ebe5b]">
+          <Icon name="whatsapp" size={26} strokeWidth={1.9} />
+          <span className="hidden pr-1 font-semibold md:inline">WhatsApp</span>
+        </a>
+      )}
+    </div>
   )
 }
 
@@ -143,15 +156,15 @@ function ScrollToTop() {
 
 export default function Layout() {
   return (
-    <PublicCompanyProvider>
+    <>
       <div className="flex min-h-screen flex-col bg-white">
         <a href="#contenu" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-white focus:p-2">Aller au contenu</a>
         <ScrollToTop />
         <Header />
         <main id="contenu" className="flex-1"><Outlet /></main>
         <Footer />
-        <MobileCall />
+        <FloatingButtons />
       </div>
-    </PublicCompanyProvider>
+    </>
   )
 }
