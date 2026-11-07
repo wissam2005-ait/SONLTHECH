@@ -32,6 +32,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(a -> a
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/public/**", "/api/auth/login").permitAll()
+                // Site (React) servi par le serveur Java sur l'hébergement cloud : pages publiques
+                .requestMatchers(req -> !req.getRequestURI().startsWith("/api/")).permitAll()
                 // Les autorisations sont vérifiées ici, côté serveur, pour chaque requête.
                 // Employés et stagiaires : leurs tâches et les chantiers auxquels ils sont affectés (filtrés côté contrôleur).
                 .requestMatchers(HttpMethod.GET, "/api/tasks/mine").authenticated()

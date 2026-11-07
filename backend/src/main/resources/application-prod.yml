@@ -1,5 +1,16 @@
-# Production : JWT_SECRET (32 caractères minimum), ADMIN_EMAIL, ADMIN_PASSWORD, DB_URL, DB_USER, DB_PASSWORD,
-# CORS_ORIGIN (adresse du site) et UPLOAD_DIR (volume persistant) sont à définir dans l'environnement.
+# Production : JWT_SECRET (32 caractères minimum), ADMIN_EMAIL, ADMIN_PASSWORD, DB_URL, DB_USER, DB_PASSWORD
+# et CORS_ORIGIN (adresse du site) sont à définir dans l'environnement.
+spring:
+  datasource:
+    hikari:
+      # Base gratuite (Neon) : peu de connexions simultanées autorisées
+      maximum-pool-size: ${DB_POOL_SIZE:5}
+      connection-timeout: 30000
 server:
   error:
     include-stacktrace: never
+  # Derrière le proxy HTTPS de l'hébergeur
+  forward-headers-strategy: native
+  compression:
+    enabled: true
+    mime-types: text/html,text/css,application/javascript,application/json,image/svg+xml

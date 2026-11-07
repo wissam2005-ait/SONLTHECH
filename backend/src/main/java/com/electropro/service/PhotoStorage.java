@@ -2,28 +2,33 @@ package com.electropro.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-/** Stockage des photos de réalisations sur disque (dossier app.upload-dir). */
+/**
+ * Stockage des photos de réalisations dans la base de données (table photo_file).
+ * Ainsi les photos sont sauvegardées avec la base et survivent aux redémarrages d'un hébergement cloud.
+ * Les photos des versions précédentes, enregistrées sur disque (app.upload-dir), restent lisibles.
+ */
 @Component
 public class PhotoStorage {
     private static final Pattern SAFE_NAME = Pattern.compile("^[0-9a-f\\-]{36}\\.(jpg|png|webp)$");
     private static final int MAX_BYTES = 3 * 1024 * 1024;
 
-    private final Path dir;
+    private final JdbcTemplate jdbc;
+    private final Path legacyDir;
 
-    public PhotoStorage(@Value("${app.upload-dir:./uploads}") String uploadDir) throws IOException {
-        this.dir = Path.of(uploadDir).toAbsolutePath().normalize();
-        Files.createDirectories(dir);
+    public PhotoStorage(JdbcTemplate jdbc, @Value("${app.upload-dir:./uploads}") String uploadDir) {
+        this.jdbc = jdbc;
+        this.legacyDir = Path.of(uploadDir).toAbsolutePath().normalize();
     }
 
     /** Enregistre l'image après avoir vérifié son contenu réel (pas seulement ce que le client déclare). */
@@ -36,29 +41,28 @@ public class PhotoStorage {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Format de photo non accepté (JPEG, PNG ou WebP).");
         }
         String name = UUID.randomUUID() + "." + ext;
-        try {
-            Files.write(dir.resolve(name), data);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        jdbc.update("insert into photo_file (file_name, content) values (?, ?)", name, data);
         return name;
     }
 
     public byte[] read(String name) {
         if (!SAFE_NAME.matcher(name).matches()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        List<byte[]> rows = jdbc.query("select content from photo_file where file_name = ?",
+                (rs, i) -> rs.getBytes(1), name);
+        if (!rows.isEmpty()) return rows.get(0);
+        // Ancienne photo enregistrée sur disque
         try {
-            return Files.readAllBytes(dir.resolve(name));
-        } catch (NoSuchFileException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return Files.readAllBytes(legacyDir.resolve(name));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     public void delete(String name) {
         if (!SAFE_NAME.matcher(name).matches()) return;
+        jdbc.update("delete from photo_file where file_name = ?", name);
         try {
-            Files.deleteIfExists(dir.resolve(name));
+            Files.deleteIfExists(legacyDir.resolve(name));
         } catch (IOException ignored) {
             // un fichier orphelin n'est pas bloquant
         }
