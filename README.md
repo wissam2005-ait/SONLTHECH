@@ -10,6 +10,10 @@ Application de gestion pour une entreprise d'électricité en Algérie, qui remp
 
 ---
 
+## Mise en ligne gratuite (Internet)
+
+Voir **[DEPLOIEMENT.md](DEPLOIEMENT.md)** : Render (serveur + site) et Neon (base PostgreSQL), gratuits.
+
 ## 1. Installation (ordinateur Windows ou serveur Linux)
 
 Seul prérequis : **Docker** ([Docker Desktop](https://www.docker.com/products/docker-desktop/) sous Windows).
@@ -93,4 +97,6 @@ cd frontend && npm install && npm run dev          # interface sur http://localh
 seulement), `SITE_URL`, `HTTP_PORT`.
 
 ### Personnaliser le site vitrine
-Textes : `frontend/src/pages/Home.tsx`, `Services.tsx`, `components/Layout.tsx`, `index.html` (ville : « Alger »).
+- Coordonnées (téléphone, e-mail, adresse, logo) : **Réglages → Paramètres** dans l'application, affichées automatiquement sur le site.
+- Textes, services, étapes, questions fréquentes, horaires : `frontend/src/lib/site.ts`.
+- Référencement : `frontend/index.html`.

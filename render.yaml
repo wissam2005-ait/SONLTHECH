@@ -1,0 +1,26 @@
+# Blueprint Render : crée le service web gratuit d'ElectroPro.
+# Render → New → Blueprint → choisir ce dépôt GitHub, puis remplir les valeurs demandées.
+services:
+  - type: web
+    name: electropro
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/public/company
+    autoDeploy: true
+    envVars:
+      # Base PostgreSQL Neon, au format jdbc:postgresql://HÔTE/neondb?sslmode=require
+      - key: DB_URL
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      # Compte dirigeant créé au premier démarrage
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      # Clé des connexions : générée automatiquement par Render
+      - key: JWT_SECRET
+        generateValue: true
