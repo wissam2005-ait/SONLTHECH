@@ -1,0 +1,5 @@
+# Profil de développement (actif par défaut). NE PAS UTILISER EN PRODUCTION.
+app:
+  jwt-secret: ${JWT_SECRET:dev-only-secret-change-me-0123456789abcdef}
+  admin-email: ${ADMIN_EMAIL:admin@electropro.local}
+  admin-password: ${ADMIN_PASSWORD:ChangeMe-Dev-2026!}

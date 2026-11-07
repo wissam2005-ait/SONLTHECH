@@ -1,0 +1,5 @@
+# Production : JWT_SECRET (32 caractères minimum), ADMIN_EMAIL, ADMIN_PASSWORD, DB_URL, DB_USER, DB_PASSWORD,
+# CORS_ORIGIN (adresse du site) et UPLOAD_DIR (volume persistant) sont à définir dans l'environnement.
+server:
+  error:
+    include-stacktrace: never
