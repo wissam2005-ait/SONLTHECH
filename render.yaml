@@ -8,7 +8,8 @@ services:
     # Même région que la base Neon (AWS Europe Central 1, Francfort)
     region: frankfurt
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /api/public/company
+    # Ne lit pas la base (préserve le quota de calcul Neon)
+    healthCheckPath: /api/public/ping
     autoDeploy: true
     envVars:
       # Base PostgreSQL Neon, au format jdbc:postgresql://HÔTE/neondb?sslmode=require
