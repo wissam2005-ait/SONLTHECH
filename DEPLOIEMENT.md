@@ -46,7 +46,7 @@ L'application tourne sur **un seul service Render** (le serveur Java sert l'API 
 
 Render endort le service après 15 minutes sans visite ; la visite suivante attend environ une minute.
 Pour l'éviter, créez une tâche gratuite sur https://cron-job.org qui ouvre
-`https://…onrender.com/api/public/company` **toutes les 10 minutes**. (Un seul service gratuit reste ainsi
+`https://…onrender.com/api/public/ping` **toutes les 10 minutes** (cette adresse ne sollicite pas la base de données). (Un seul service gratuit reste ainsi
 allumé en permanence : l'offre gratuite inclut 750 heures par mois.)
 
 ## Nom de domaine (optionnel)
