@@ -42,7 +42,7 @@ public class SettingsController {
         return settings.findById(1).orElseGet(() -> {
             CompanySettings s = new CompanySettings();
             s.setId(1);
-            s.setName("Sonlthech");
+            s.setName("Sonaltech Électrique");
             return settings.save(s);
         });
     }
