@@ -9,7 +9,7 @@ import type { IconName } from '../components/icons'
  */
 export const site = {
   /** Nom affiché si les Paramètres ne sont pas encore remplis */
-  defaultName: 'Sonlthech',
+  defaultName: 'Sonaltech Électrique',
   /** Zone d'intervention, reprise dans les titres et le référencement */
   area: 'Béjaïa, Alger et leurs environs',
   city: 'Béjaïa et Alger',

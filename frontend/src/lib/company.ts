@@ -20,7 +20,7 @@ export interface Company {
 }
 
 export const emptyCompany: Company = {
-  name: 'Sonlthech', legalForm: null, capital: null, address: null, city: null, phone: null, email: null,
+  name: 'Sonaltech Électrique', legalForm: null, capital: null, address: null, city: null, phone: null, email: null,
   rc: null, nif: null, nis: null, ai: null, bank: null, footer: null, logo: null,
 }
 
